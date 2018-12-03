@@ -1,11 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
+import classes from './ActiveQuiz.css';
+import AnswersList from './AnswersList/AnswersList';
 
-const ActiveQuiz = props => {
-    return (
-        <div>
-            ActiveQuiz
-        </div>
-    )
-};
+const ActiveQuiz = props => (
+    <div className={classes.ActiveQuiz}>
+        <p className={classes.Question}>
+            <span>
+                <strong>2.</strong>&nbsp;
+                Как дела?
+            </span>
+            <small>4 из 12</small>
+        </p>
+
+        <AnswersList/>
+    </div>
+);
 
 export default ActiveQuiz;
