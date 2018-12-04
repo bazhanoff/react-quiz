@@ -35,10 +35,16 @@ class Quiz extends Component {
         return this.state.activeQuestion + 1  === this.state.quiz.length
     };
 
-    onAnswerClickHandler = (answerId, AnswerItem) => {
+    onAnswerClickHandler = answerId => {
         const question = this.state.quiz[this.state.activeQuestion];
         if (question.rightAnswerId === answerId) {
-            // AnswerItem.current.style.borderColor = 'green';
+            if (this.state.answerState) {
+                const key = Object.keys(this.state.answerState)[0];
+                if (this.state.answerState[key] === 'success') {
+                    return
+                }
+            }
+
             this.setState({
                 answerState: {
                     [answerId]: 'success'
