@@ -1,25 +1,34 @@
 import React, {Component} from 'react';
 import classes from './Drawer.css';
+import Backdrop from './../../UI/Backdrop/Backdrop';
 
 const links = [1, 2, 3];
 
 class Drawer extends Component {
-
     renderLinks = () => {
-        links.map((link) => {
+        return links.map((link, index) => {
             return (
-                <li><a href={'#0'}>link</a></li>
+                <li key={index}>
+                    <a href={' '}>Link {link}</a>
+                </li>
             )
         })
     };
 
     render() {
+        const cls = [classes.Drawer];
+        if (!this.props.isOpen) {
+            cls.push(classes.close)
+        }
         return (
-            <nav className={classes.Drawer}>
-                <ul>
-                    {this.renderLinks}
-                </ul>
-            </nav>
+            <React.Fragment>
+                <nav className={cls.join(' ')}>
+                    <ul>
+                        {this.renderLinks()}
+                    </ul>
+                </nav>
+                {this.props.isOpen ? <Backdrop /> : null}
+            </React.Fragment>
         )
     }
 }
