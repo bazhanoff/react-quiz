@@ -118,7 +118,6 @@ class Quiz extends Component {
                                 state={this.state.answerState}
                             />
                     }
-
                 </div>
             </div>
         )
