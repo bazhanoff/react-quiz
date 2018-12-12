@@ -4,6 +4,7 @@ import Button from '../../components/UI/Button/Button';
 import {createControl} from './../../form/formFramework.js'
 import Input from "../../components/UI/Input/Input";
 import Auxiliary from "../../hoc/Auxiliary/Auxiliary";
+import Select from "../../components/UI/Select/Select";
 
 function createOptionControl(number) {
     return createControl({
@@ -31,16 +32,8 @@ function createFormControls() {
 export default class QuizCreator extends React.Component {
     state = {
         quiz: [],
-        formControls: {
-            question: createControl({
-                label: 'Введите вопрос',
-                errorMessage: 'Вопрос не может быть пустым'
-            }, {required: true}),
-            option1: createOptionControl(1),
-            option2: createOptionControl(2),
-            option3: createOptionControl(3),
-            option4: createOptionControl(4)
-        },
+        formControls: createFormControls(),
+        rightAnswerId: 1
     };
 
 
@@ -57,6 +50,13 @@ export default class QuizCreator extends React.Component {
     };
 
     changeHandler = (value, controlName) => {
+
+    };
+
+    selectChangeHandler = event => {
+        this.setState({
+            rightAnswerId: +event.target.value
+        });
 
     };
 
@@ -84,13 +84,24 @@ export default class QuizCreator extends React.Component {
     };
 
     render() {
+        const select =  <Select
+            label="Выберите правильный ответ"
+            value={this.state.rightAnswerId}
+            onChange={this.selectChangeHandler}
+            options={[
+                {text: '1', value: '1'},
+                {text: '2', value: '2'},
+                {text: '3', value: '3'},
+                {text: '4', value: '4'},
+            ]}
+        />;
         return (
             <div className={classes.QuizCreator}>
                 <div>
                     <h1>Создание теста</h1>
                     <form onSubmit={this.submitHandler}>
                         {this.renderControls()}
-                        <select></select>
+                        {select}
                         <Button
                             type='primary'
                             onClick={this.addQuestionHandler}
