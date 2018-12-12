@@ -72,16 +72,20 @@ export default class QuizCreator extends React.Component {
         })
     };
 
-    createQuizHandler = event => {
+    createQuizHandler = async event => {
         event.preventDefault();
-        console.log(this.state.quiz);
-        axios.post('https://react-quiz-ef355.firebaseio.com/quizes.json', this.state.quiz)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error)
-            })
+
+        try {
+          axios.post('https://react-quiz-ef355.firebaseio.com/quizes.json', this.state.quiz);
+          this.setState({
+              quiz: [],
+              isFormValid: false,
+              formControls: createFormControls(),
+              rightAnswerId: 1
+          })
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     changeHandler = (value, controlName) => {
@@ -104,7 +108,6 @@ export default class QuizCreator extends React.Component {
         this.setState({
             rightAnswerId: +event.target.value
         });
-
     };
 
     renderControls() {
